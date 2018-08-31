@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 let defaultStyle = {
@@ -75,7 +75,7 @@ class Filter extends Component {
   render () {
     return (
       <div style={{defaultStyle}}>
-        <img />
+        <img alt="#"/>
         <input type='text' />
       </div> 
     );
@@ -84,14 +84,15 @@ class Filter extends Component {
 
 class Playlist extends Component {
   render () {
+    let playlist = this.props.playlist
     return (
       <div style={{...defaultStyle, display: 'inline-block', wdith: '25%'}}>
-        <img />
-        <h3>Playlist Name</h3>
+        <img alt="#" />
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>Song 1</li>
-          <li>Song 2</li>
-          <li>Song 3</li>
+          {playlist.songs.map(song => 
+            <li>{song.name}</li>
+          )}
         </ul>
       </div>
     );
@@ -110,9 +111,15 @@ class App extends Component {
   }
 
   render() {
-    // let name = 'Christopher'
-    // let green = '#FF1212' 
-    // let headerStyle = {color: green, 'font-size': '50px'}
+    
+  //   let playlistElements = []
+  //   if (this.state.serverData.user) {
+  //     for (let i = 0; i < this.state.serverData.user.playlists.length; i++) {
+  //       let playlist = this.state.serverData.user.playlists[i]
+  //       playlistElements.push(<Playlist playlist={playlist} />)
+  //   }
+  // }
+        
     return (
       <div className="App">
         {
@@ -126,10 +133,10 @@ class App extends Component {
             <HoursCounter playlists={this.state.serverData.user.playlists} />
               
             <Filter />
-            <Playlist />
-            <Playlist />
-            <Playlist />
-            <Playlist />
+            {/* {playlistElements} */}
+            {this.state.serverData.user.playlists.map(playlist => 
+              <Playlist playlist={playlist} />
+            )}
           </div> : <h1 style={defaultStyle}>Loading...</h1>
         }
       </div>
